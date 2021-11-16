@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#fpsCounter {
+    font-size: x-large;
+    width: 50px;
+    height: 25px;
+    position: absolute;
+    background-color: white;
+}

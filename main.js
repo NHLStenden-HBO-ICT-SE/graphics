@@ -1,4 +1,4 @@
-import * as THREE from "https://threejsfundamentals.org/threejs/resources/threejs/r132/build/three.module.js";
+import * as THREE from "./three.module.js";
 
 var velX = 0;
 var velY = 0;
@@ -9,10 +9,11 @@ var rotY = 0;
 var RotZ = 0;
  
 var speed = 2;
-var friction = 0.92;
+var friction = 0.20;
 
 
 function main() {
+  var lastLoop = new Date();
   const canvas = document.querySelector("#c");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -43,29 +44,25 @@ function main() {
 
   const scene = new THREE.Scene();
 
-  const boxWidth = 1; //1
-  const boxHeight = 1; //1
-  const boxDepth = 1; //1
-  const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-
-  //canvas.width = 1000;
-  //canvas.height = 800;
-
-  const cubes = []; // just an array we can use to rotate the cubes
+  const spheres = []; // just an array we can use to rotate the spheres
+  
+  const geometry = new THREE.SphereGeometry(0.51, 32, 32);
   const loader = new THREE.TextureLoader();
-
-  // const material = new THREE.MeshBasicMaterial({
-  //   map: loader.load('https://threejsfundamentals.org/threejs/resources/images/wall.jpg'),
-  // });
-
-  //Voor de memes.
   const material = new THREE.MeshBasicMaterial({
-    map: loader.load("Wall.jpg"),
+    map: loader.load("earth.jpg"),
+  });
+  const earth = new THREE.Mesh(geometry, material);
+  earth.position.x = 2;
+  scene.add(earth);
+  spheres.push(earth); // add to our list of spheres to rotate
+
+  const material2 = new THREE.MeshBasicMaterial({
+    map: loader.load("sun.jpg"),
   });
 
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
-  cubes.push(cube); // add to our list of cubes to rotate
+  const sphere2 = new THREE.Mesh(geometry, material2);
+  scene.add(sphere2);
+  spheres.push(sphere2); // add to our list of spheres to rotate
 
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -82,117 +79,59 @@ function main() {
     time *= 0.001;
     t = t + 0.01;
     x++;
-    //console.log(t);
-
-    // document.addEventListener("keypress", function(event) {
-
-    // });
-
-    // if (t >= 1) {
-    //   console.log(
-    //     "camera pos :" +
-    //       camera.position.x +
-    //       " " +
-    //       camera.position.y +
-    //       " " +
-    //       camera.position.z
-    //   );w
-    //   console.log(
-    //     "camera rot :" +
-    //       camera.rotation.x +
-    //       " " +
-    //       camera.rotation.y +
-    //       " " +
-    //       camera.rotation.z
-    //   );
-    //   console.log("FPS: " + x);
-    //   x = 0;
-    //   t = 0;
-    // }
 
     document.onkeypress = function (evt) {
       evt = evt || window.event;
       var charCode = evt.keyCode || evt.which;
       var charStr = String.fromCharCode(charCode);
-      //alert(charStr);
       switch (charStr) {
         case "w":
-        if(velZ < speed){
-          velZ++;
-        }
-          // camera.position.z = camera.position.z - 1;
-          // //camera.translateZProperty().set(camera.getTranslateZ() + 10);
-          // //alert(charStr + "test w" );
+          if(velZ < speed){
+            velZ++;
+          }
           break;
         case "s":
           if(velZ > -speed){
             velZ--;
           }
-          // camera.position.z = camera.position.z + 1;
-          // //camera.translateZProperty().set(camera.getTranslateZ() - 10);
-          // //alert(charStr + "test s" );
           break;
         case "a":
           if(velX < speed){
             velX++;
           }
-          // camera.position.x = camera.position.x - 1;
-          // //camera.translateXProperty().set(camera.getTranslateX() + 10);
-          // //alert(charStr + "test a" );
           break;
         case "d":
           if(velX > -speed){
             velX--;
           }
-          // camera.position.x = camera.position.x + 1;
-          // //camera.translateXProperty().set(camera.getTranslateX() - 10);
-          // //alert(charStr + "test d" );
           break;
         case "z":
           if(velY < speed){
             velY++;
           }
-          // camera.position.y = camera.position.y - 1;
-          // //camera.translateYProperty().set(camera.getTranslateY() + 10);
-          // //alert(charStr + "test y" );
           break;
         case "x":
           if(velY > -speed){
             velY--;
           }
-          // camera.position.y = camera.position.y + 1;
-          // //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          // //alert(charStr + "test x" );
           break;
         case "q":
           camera.rotation.y = camera.rotation.y + 0.02;
-          //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          //alert(charStr + "test x" );
           break;
         case "e":
           camera.rotation.y = camera.rotation.y - 0.02;
-          //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          //alert(charStr + "test x" );
           break;
         case "r":
           camera.rotation.x = camera.rotation.x + 0.02;
-          //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          //alert(charStr + "test x" );
           break;
         case "f":
           camera.rotation.x = camera.rotation.x - 0.02;
-          //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          //alert(charStr + "test x" );
           break;
         case "c":
           camera.rotation.z = camera.rotation.z + 0.02;
-          //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          //alert(charStr + "test x" );
           break;
         case "v":
           camera.rotation.z = camera.rotation.z - 0.02;
-          //camera.translateYProperty().set(camera.getTranslateY() - 10);
-          //alert(charStr + "test x" );
           break;
       }
     };
@@ -203,11 +142,11 @@ function main() {
       camera.updateProjectionMatrix();
     }
 
-    cubes.forEach((cube, ndx) => {
+    spheres.forEach((sphere, ndx) => {
       const speed = 0.2 + ndx * 0.1;
       const rot = time * speed;
-      cube.rotation.x = rot;
-      cube.rotation.y = rot;
+      // sphere.rotation.x = rot;
+      sphere.rotation.y = rot;
     });
 
     
@@ -216,7 +155,12 @@ function main() {
     velZ *= friction;
 
 
-    console.log("FPS: " + velX);
+    var thisLoop = new Date();
+    var fps = 1000 / (thisLoop - lastLoop);
+    lastLoop = thisLoop;
+
+    var div = document.getElementById('fpsCounter');
+    div.innerHTML = Math.round(fps);
 
     camera.position.x = camera.position.x - velX;
     camera.position.y = camera.position.y - velY;
