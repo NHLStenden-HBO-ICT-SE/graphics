@@ -1,11 +1,36 @@
-class planets{
-    constructor(name, pos, positionSpeed, rotationSpeed, size, texture, disSun) {
-        this.name = name;
-        this.pos = pos;
-        this.positionSpeed = positionSpeed;
-        this.rotationSpeed = rotationSpeed;
-        this.size = size;
-        this.texture = texture;
-        this.disSun = disSun;
-      }   
+import * as THREE from "/include/modules/three.module.js";
+
+export default class Planets {
+
+  group;
+  object;
+
+  constructor(name, positionSpeed, rotationSpeed, size, disSun) {
+    this.name = name;
+    this.positionSpeed = positionSpeed;
+    this.rotationSpeed = rotationSpeed;
+    this.size = size;
+    this.disSun = disSun;
+  }
+
+  createPlanet(scene, geometry, loader, spheres) {
+    this.group = new THREE.Group();
+    this.object = new THREE.Mesh(geometry, this.createMaterial(loader));
+    this.object.position.set(this.disSun, 0, 0);
+    this.object.scale.setScalar(this.size);
+    this.group.add(this.object);
+    scene.add(this.group);
+    spheres.push(this);
+  }
+
+  createMaterial(loader) {
+    return new THREE.MeshBasicMaterial({
+      map: loader.load("/include/img/" + this.name + ".jpg"),
+    });
+  }
+
+  rotate(time) {
+    this.group.rotation.y = time * this.positionSpeed;
+    this.object.rotation.y = time * this.rotationSpeed;
+  }
 }

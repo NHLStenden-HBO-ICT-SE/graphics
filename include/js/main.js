@@ -1,16 +1,13 @@
 import * as THREE from "/include/modules/three.module.js";
+import Planets from "/include/js/Planets.js";
+import Camera from "/include/js/Camera.js";
 
 var velX = 0;
 var velY = 0;
 var velZ = 0;
-
-var rotX = 0;
-var rotY = 0;
-var RotZ = 0;
  
 var speed = 2;
 var friction = 0.20;
-
 
 function main() {
   var lastLoop = new Date();
@@ -20,67 +17,25 @@ function main() {
   const renderer = new THREE.WebGLRenderer({ canvas });
   var t = 0;
   var x = 0;
-  
 
-  //origineel
-  // const fov = 75;
-  // const aspect = 2;  // the canvas default
-  // const near = 0.1;
-  // const far = 10; //5
-  // const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  // camera.position.z = 3; //2
-
-  const fieldOfView = 40;
-  const aspectRatio = 16 / 9;
-  const near = 0.1;
-  const far = 1000;
-  const camera = new THREE.PerspectiveCamera(
-    fieldOfView,
-    aspectRatio,
-    near,
-    far
-  );
-  camera.position.z = 10; //2
+  const camera = new Camera(40, 16 / 9, 0.1, 1000);
+  camera.createCamera();
 
   const scene = new THREE.Scene();
 
-  const spheres = []; // just an array we can use to rotate the spheres
+  const spheres = [];
   
   const geometry = new THREE.SphereGeometry(0.51, 32, 32);
   const loader = new THREE.TextureLoader();
-  const material = new THREE.MeshBasicMaterial({
-    map: loader.load("/include/img/earth.jpg"),
-  });
-  const earth = new THREE.Mesh(geometry, material);
-  earth.position.x = 2;
-  earth.speed = 2;
-  scene.add(earth);
-  spheres.push(earth); // add to our list of spheres to rotate
 
-  const material2 = new THREE.MeshBasicMaterial({
-    map: loader.load("/include/img/sun.jpg"),
-  });
+  const sun = new Planets("sun" , 0, 0.2, 10, 0);
+  sun.createPlanet(scene, geometry, loader, spheres);
 
-  const sun = new THREE.Mesh(geometry, material2);
-  sun.speed = 1;
-  scene.add(sun);
-  spheres.push(sun); // add to our list of spheres to rotate
-
-  function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-      renderer.setSize(width, height, false);
-    }
-    return needResize;
-  }
+  const earth = new Planets("earth", 0.5, 1, 1, 10);
+  earth.createPlanet(scene, geometry, loader, spheres);
 
   function render(time) {
     time *= 0.001;
-    t = t + 0.01;
-    x++;
 
     document.onkeypress = function (evt) {
       evt = evt || window.event;
@@ -138,18 +93,10 @@ function main() {
       }
     };
 
-    if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-    }
-
-    spheres.forEach((sphere) => {
-      const rot = time * sphere.speed;
-      sphere.rotation.y = rot;
+    spheres.forEach(planet => {
+      planet.rotate(time);
     });
 
-    
     velX *= friction;
     velY *= friction;
     velZ *= friction;
@@ -162,9 +109,7 @@ function main() {
     var div = document.getElementById('fpsCounter');
     div.innerHTML = Math.round(fps);
 
-    camera.position.x = camera.position.x - velX;
-    camera.position.y = camera.position.y - velY;
-    camera.position.z = camera.position.z - velZ;
+    camera.test(velX, velY, velZ);
 
     renderer.render(scene, camera);
 
