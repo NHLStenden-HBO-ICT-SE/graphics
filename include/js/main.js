@@ -18,8 +18,8 @@ function main() {
   var t = 0;
   var x = 0;
 
-  const camera = new Camera(40, 16 / 9, 0.1, 1000);
-  camera.createCamera();
+  const cameraClass = new Camera(40, 16 / 9, 0.1, 1000);
+  const camera = cameraClass.createCamera();
 
   const scene = new THREE.Scene();
 
@@ -109,7 +109,7 @@ function main() {
     var div = document.getElementById('fpsCounter');
     div.innerHTML = Math.round(fps);
 
-    camera.test(velX, velY, velZ);
+    cameraClass.test(velX, velY, velZ);
 
     renderer.render(scene, camera);
 

@@ -2,7 +2,7 @@ import * as THREE from "/include/modules/three.module.js";
 
 export default class Camera {
 
-    testCamera;
+    ;
 
     constructor(fieldOfView, aspectRatio, near, far,) {
         this.fieldOfView = fieldOfView;
@@ -12,13 +12,14 @@ export default class Camera {
     }
 
     createCamera() {
-        this.testCamera = new THREE.PerspectiveCamera(this.fieldOfView, this.aspectRatio, this.near, this.far);
-        this.testCamera.position.set(0, 0, 35);
+        this.camera = new THREE.PerspectiveCamera(this.fieldOfView, this.aspectRatio, this.near, this.far);
+        this.camera.position.set(0, 0, 35);
+        return this.camera;
     }
 
     test(velX, velY, velZ) {
-        this.testCamera.position.x = this.testCamera.position.x - velX;
-        this.testCamera.position.y = this.testCamera.position.y - velY;
-        this.testCamera.position.z = this.testCamera.position.z - velZ;
+        this.camera.position.x = this.camera.position.x - velX;
+        this.camera.position.y = this.camera.position.y - velY;
+        this.camera.position.z = this.camera.position.z - velZ;
     }
 }
