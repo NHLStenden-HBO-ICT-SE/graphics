@@ -40,7 +40,7 @@ function main() {
     near,
     far
   );
-  camera.position.z = 3; //2
+  camera.position.z = 10; //2
 
   const scene = new THREE.Scene();
 
@@ -53,6 +53,7 @@ function main() {
   });
   const earth = new THREE.Mesh(geometry, material);
   earth.position.x = 2;
+  earth.speed = 2;
   scene.add(earth);
   spheres.push(earth); // add to our list of spheres to rotate
 
@@ -60,9 +61,10 @@ function main() {
     map: loader.load("sun.jpg"),
   });
 
-  const sphere2 = new THREE.Mesh(geometry, material2);
-  scene.add(sphere2);
-  spheres.push(sphere2); // add to our list of spheres to rotate
+  const sun = new THREE.Mesh(geometry, material2);
+  sun.speed = 1;
+  scene.add(sun);
+  spheres.push(sphsunere2); // add to our list of spheres to rotate
 
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -142,10 +144,9 @@ function main() {
       camera.updateProjectionMatrix();
     }
 
-    spheres.forEach((sphere, ndx) => {
-      const speed = 0.2 + ndx * 0.1;
-      const rot = time * speed;
-      // sphere.rotation.x = rot;
+    spheres.forEach((sphere) => {
+      const speed = 0.5;
+      const rot = time * sphere.speed;
       sphere.rotation.y = rot;
     });
 
