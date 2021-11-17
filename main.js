@@ -64,7 +64,7 @@ function main() {
   const sun = new THREE.Mesh(geometry, material2);
   sun.speed = 1;
   scene.add(sun);
-  spheres.push(sphsunere2); // add to our list of spheres to rotate
+  spheres.push(sun); // add to our list of spheres to rotate
 
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -145,7 +145,6 @@ function main() {
     }
 
     spheres.forEach((sphere) => {
-      const speed = 0.5;
       const rot = time * sphere.speed;
       sphere.rotation.y = rot;
     });
