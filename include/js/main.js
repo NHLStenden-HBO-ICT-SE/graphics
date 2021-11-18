@@ -23,7 +23,7 @@ function main() {
     alpha: true
   });
 
-  const cameraClass = new Camera(40, 16 / 9, 0.1, 1000);
+  const cameraClass = new Camera(50, 16 / 9, 0.1, 1000);
   const camera = cameraClass.createCamera();
 
   const scene = new THREE.Scene();
