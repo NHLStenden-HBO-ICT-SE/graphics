@@ -23,7 +23,7 @@ function main() {
     alpha: true
   });
 
-  const cameraClass = new Camera(50, 16 / 9, 0.1, 1000);
+  const cameraClass = new Camera(50, 16 / 9, 0.1, 1000, 50);
   const camera = cameraClass.createCamera();
 
   const scene = new THREE.Scene();
@@ -57,7 +57,7 @@ function main() {
   const uranus = new Planets("uranus", 0.58, 1, 1, 18);
   uranus.createPlanet(scene, geometry, loader, spheres);
 
-  const neptune = new Planets("neptune", 0.67, 1, 1, 20);
+  const neptune = new Planets("neptune", 0.67, 1, 1, 30);
   neptune.createPlanet(scene, geometry, loader, spheres);
   
   function render(time) {
@@ -147,7 +147,7 @@ function main() {
     var div = document.getElementById('fpsCounter');
     div.innerHTML = Math.round(fps);
 
-    cameraClass.test(velX, velY, velZ);
+    cameraClass.rotate(velX, velY, velZ);
 
     renderer.render(scene, camera);
     requestAnimationFrame(render);
