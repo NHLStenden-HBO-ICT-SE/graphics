@@ -147,9 +147,6 @@ function main() {
     var fpsDiv = document.getElementById('fpsCounter');
     fpsDiv.innerHTML = "fps: " + Math.round(fps);
 
-    var daysDiv = document.getElementById('daysCounter');
-    daysDiv.innerHTML = "days:" + Math.round(time + difference);
-
     cameraClass.rotate(velX, velY, velZ);
 
     renderer.render(scene, camera);
