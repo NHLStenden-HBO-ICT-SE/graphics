@@ -14,7 +14,10 @@ function main() {
   const canvas = document.querySelector("#c");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  const renderer = new THREE.WebGLRenderer({ canvas });
+  const renderer = new THREE.WebGLRenderer({
+     canvas,
+     alpha: true
+     });
   var t = 0;
   var x = 0;
 
@@ -31,22 +34,28 @@ function main() {
   const sun = new Planets("sun" , 0, 0.2, 10, 0);
   sun.createPlanet(scene, geometry, loader, spheres);
 
-  const earth = new Planets("earth", 0.5, 1, 1, 10);
-  earth.createPlanet(scene, geometry, loader, spheres);
-
   const mercury = new Planets("mercury", 0.3, 1, 1, 6);
   mercury.createPlanet(scene, geometry, loader, spheres);
 
   const venus = new Planets("venus", 0.7, 1, 1, 8);
   venus.createPlanet(scene, geometry, loader, spheres);
 
-  const mars = new Planets("mars", 0.5, 1, 1, 10);
+  const earth = new Planets("earth", 0.5, 1, 1, 10);
+  earth.createPlanet(scene, geometry, loader, spheres);
+
+  const mars = new Planets("mars", 0.72, 1, 1, 12);
   mars.createPlanet(scene, geometry, loader, spheres);
 
-  const jupiter = new Planets("jupiter", 0.8, 1, 1, 12);
+  const jupiter = new Planets("jupiter", 0.8, 1, 1, 14);
   jupiter.createPlanet(scene, geometry, loader, spheres);
 
-  const neptune = new Planets("neptune", 0.7, 1, 1, 16);
+  const saturn = new Planets("saturn", 0.7, 1, 1, 16);
+  saturn.createPlanet(scene, geometry, loader, spheres);
+
+  const uranus = new Planets("uranus", 0.58, 1, 1, 18);
+  uranus.createPlanet(scene, geometry, loader, spheres);
+
+  const neptune = new Planets("neptune", 0.67, 1, 1, 20);
   neptune.createPlanet(scene, geometry, loader, spheres);
 
   function render(time) {
