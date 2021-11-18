@@ -172,3 +172,5 @@ function main() {
 }
 
 main();
+
+alert("Welkom in ons zonnestelsel. Je kunt de applicatie starten met spatie, en er doorheen bewegen doormiddel van de toetsen: W,A,S,D. Roteren kan doormiddel van de toetsen: Q,E,R,F,C,V. Veel plezier!");
