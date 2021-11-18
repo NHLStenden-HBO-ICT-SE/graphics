@@ -23,41 +23,41 @@ function main() {
     alpha: true
   });
 
-  const cameraClass = new Camera(50, 16 / 9, 0.1, 1000, 50);
+  const cameraClass = new Camera(70, 16 / 9, 0.1, 1000, 50);
   const camera = cameraClass.createCamera();
 
   const scene = new THREE.Scene();
 
   const spheres = [];
   
-  const geometry = new THREE.SphereGeometry(0.51, 32, 32);
+  const geometry = new THREE.SphereGeometry(0.5, 32, 16);
   const loader = new THREE.TextureLoader();
 
   const sun = new Planets("sun" , 0, 0.2, 10, 0);
   sun.createPlanet(scene, geometry, loader, spheres);
 
-  const mercury = new Planets("mercury", 0.3, 1, 1, 6);
+  const mercury = new Planets("mercury", 4, 1.5, 0.4, 4);
   mercury.createPlanet(scene, geometry, loader, spheres);
 
-  const venus = new Planets("venus", 0.7, 1, 1, 8);
+  const venus = new Planets("venus", 1.6, 2, 0.95, 7.2);
   venus.createPlanet(scene, geometry, loader, spheres);
 
-  const earth = new Planets("earth", 0.5, 1, 1, 10);
+  const earth = new Planets("earth", 1, 365, 1, 10);
   earth.createPlanet(scene, geometry, loader, spheres);
 
-  const mars = new Planets("mars", 0.72, 1, 1, 12);
+  const mars = new Planets("mars", 0.53, 686, 0.53, 15);
   mars.createPlanet(scene, geometry, loader, spheres);
 
-  const jupiter = new Planets("jupiter", 0.8, 1, 1, 14);
+  const jupiter = new Planets("jupiter", 0.09, 10000, 2.5, 25);
   jupiter.createPlanet(scene, geometry, loader, spheres);
 
-  const saturn = new Planets("saturn", 0.7, 1, 1, 16);
+  const saturn = new Planets("saturn", 0.03, 24000, 2, 30);
   saturn.createPlanet(scene, geometry, loader, spheres);
 
-  const uranus = new Planets("uranus", 0.58, 1, 1, 18);
+  const uranus = new Planets("uranus", 0.01, 42000, 1.5, 40);
   uranus.createPlanet(scene, geometry, loader, spheres);
 
-  const neptune = new Planets("neptune", 0.67, 1, 1, 30);
+  const neptune = new Planets("neptune", 0.006, 92000, 1.25, 55);
   neptune.createPlanet(scene, geometry, loader, spheres);
   
   function render(time) {
@@ -144,8 +144,11 @@ function main() {
     var fps = 1000 / (thisLoop - lastLoop);
     lastLoop = thisLoop;
 
-    var div = document.getElementById('fpsCounter');
-    div.innerHTML = Math.round(fps);
+    var fpsDiv = document.getElementById('fpsCounter');
+    fpsDiv.innerHTML = "fps: " + Math.round(fps);
+
+    var daysDiv = document.getElementById('daysCounter');
+    daysDiv.innerHTML = "days:" + Math.round(time + difference);
 
     cameraClass.rotate(velX, velY, velZ);
 
