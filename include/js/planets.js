@@ -18,6 +18,10 @@ export default class Planets {
     this.object = new THREE.Mesh(geometry, this.createMaterial(loader));
     this.object.position.set(this.disSun, 0, 0);
     this.object.scale.setScalar(this.size);
+    //shadow 
+    this.object.castShadow = true;
+    this.object.receiveShadow = true;
+
     this.group.add(this.object);
     scene.add(this.group);
     spheres.push(this);

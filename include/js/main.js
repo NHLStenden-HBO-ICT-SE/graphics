@@ -23,10 +23,24 @@ function main() {
     alpha: true
   });
 
-  const cameraClass = new Camera(50, 16 / 9, 0.1, 1000, 50);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
+
+  const cameraClass = new Camera(30, 16 / 9, 0.1, 1000, 50);
   const camera = cameraClass.createCamera();
 
   const scene = new THREE.Scene();
+
+  const light = new THREE.PointLight( 0xFF0000, 1, 100 );
+  light.position.set(0, 0, 20);
+  light.castShadow = true; 
+  light.add()
+  scene.add( light );
+
+  light.shadow.mapSize.width = 512; 
+  light.shadow.mapSize.height = 512; 
+  light.shadow.camera.near = 0.5;
+  light.shadow.camera.far = 500; 
 
   const spheres = [];
   
@@ -60,6 +74,10 @@ function main() {
   const neptune = new Planets("neptune", 0.67, 1, 1, 30);
   neptune.createPlanet(scene, geometry, loader, spheres);
   
+  //Create a helper for the shadow camera (optional)
+  const helper = new THREE.CameraHelper( light.shadow.camera );
+  scene.add( helper );
+
   function render(time) {
     time *= 0.001;
     
