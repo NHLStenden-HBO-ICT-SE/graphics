@@ -19,11 +19,9 @@ function main() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const renderer = new THREE.WebGLRenderer({
-     canvas,
-     alpha: true
-     });
-  var t = 0;
-  var x = 0;
+    canvas,
+    alpha: true
+  });
 
   const cameraClass = new Camera(40, 16 / 9, 0.1, 1000);
   const camera = cameraClass.createCamera();
