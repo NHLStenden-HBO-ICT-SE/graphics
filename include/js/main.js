@@ -9,14 +9,16 @@ var velZ = 0;
 var speed = 2;
 var friction = 0.20;
 
+var running = false;
+var runningTime = 0;
+var difference = 0;
+
 function main() {
   var lastLoop = new Date();
   const canvas = document.querySelector("#c");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   const renderer = new THREE.WebGLRenderer({ canvas });
-  var t = 0;
-  var x = 0;
 
   const cameraClass = new Camera(40, 16 / 9, 0.1, 1000);
   const camera = cameraClass.createCamera();
@@ -31,7 +33,7 @@ function main() {
   const sun = new Planets("sun" , 0, 0.2, 10, 0);
   sun.createPlanet(scene, geometry, loader, spheres);
 
-  const earth = new Planets("earth", 0.5, 1, 1, 10);
+  const earth = new Planets("earth", 0.5, 1, 2, 10);
   earth.createPlanet(scene, geometry, loader, spheres);
 
   const mercury = new Planets("mercury", 0.3, 1, 1, 6);
@@ -48,10 +50,10 @@ function main() {
 
   const neptune = new Planets("neptune", 0.7, 1, 1, 16);
   neptune.createPlanet(scene, geometry, loader, spheres);
-
+  
   function render(time) {
     time *= 0.001;
-
+    
     document.onkeypress = function (evt) {
       evt = evt || window.event;
       var charCode = evt.keyCode || evt.which;
@@ -105,12 +107,24 @@ function main() {
         case "v":
           camera.rotation.z = camera.rotation.z - 0.02;
           break;
+        case " ":
+          if (running) {
+            runningTime = time + difference;
+            running = false;
+          } else {
+            running = true;
+          }
+          break;
       }
     };
 
-    spheres.forEach(planet => {
-      planet.rotate(time);
-    });
+    if (running) {
+      spheres.forEach(planet => {
+        planet.rotate(time + difference);
+      });
+    } else {
+      difference = runningTime - time;
+    }
 
     velX *= friction;
     velY *= friction;
@@ -127,7 +141,6 @@ function main() {
     cameraClass.test(velX, velY, velZ);
 
     renderer.render(scene, camera);
-
     requestAnimationFrame(render);
   }
 
