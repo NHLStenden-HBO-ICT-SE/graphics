@@ -34,6 +34,12 @@ function main() {
   const earth = new Planets("earth", 0.5, 1, 1, 10);
   earth.createPlanet(scene, geometry, loader, spheres);
 
+  const mercury = new Planets("mercury", 0.3, 1, 1, 6);
+  mercury.createPlanet(scene, geometry, loader, spheres);
+
+  const venus = new Planets("venus", 0.7, 1, 1, 8);
+  venus.createPlanet(scene, geometry, loader, spheres);
+
   function render(time) {
     time *= 0.001;
 
