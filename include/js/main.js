@@ -40,6 +40,15 @@ function main() {
   const venus = new Planets("venus", 0.7, 1, 1, 8);
   venus.createPlanet(scene, geometry, loader, spheres);
 
+  const mars = new Planets("mars", 0.5, 1, 1, 10);
+  mars.createPlanet(scene, geometry, loader, spheres);
+
+  const jupiter = new Planets("jupiter", 0.8, 1, 1, 12);
+  jupiter.createPlanet(scene, geometry, loader, spheres);
+
+  const neptune = new Planets("neptune", 0.7, 1, 1, 16);
+  neptune.createPlanet(scene, geometry, loader, spheres);
+
   function render(time) {
     time *= 0.001;
 
