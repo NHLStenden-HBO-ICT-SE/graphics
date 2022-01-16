@@ -83,11 +83,13 @@ function main() {
   light.shadow.camera.near = 0.5;
   light.shadow.camera.far = 500; 
 
+  //array with all the planets
   const spheres = [];
   
   const geometry = new THREE.SphereGeometry(0.5, 32, 16);
   const loader = new THREE.TextureLoader();
 
+  //creates all the planets and adds them to the scene
   const sun = new Planets("sun" , 0, 0.2, 10, 0);
   sun.createPlanet(scene, geometry, loader, spheres);
 
@@ -115,13 +117,15 @@ function main() {
   const neptune = new Planets("neptune", 0.006, 92000, 1.25, 55);
   neptune.createPlanet(scene, geometry, loader, spheres);
   
-  //Create a helper for the shadow camera (optional)
-  const helper = new THREE.CameraHelper( light.shadow.camera );
-  scene.add( helper );
+  //If needed create a helper for the shadow camera (optional)
+  //const helper = new THREE.CameraHelper( light.shadow.camera );
+  //scene.add( helper );
 
   function render(time) {
     time *= 0.001;
     
+    //When specific keys are pressed moves or rotates 
+    //the camera around the sun
     document.onkeypress = function (evt) {
       evt = evt || window.event;
       var charCode = evt.keyCode || evt.which;
@@ -186,6 +190,8 @@ function main() {
       }
     };
 
+    //Rotates the planets around the sun 
+    //Also rotating around the planet itself
     if (running) {
       spheres.forEach(planet => {
         planet.rotate(time + difference);
@@ -198,20 +204,19 @@ function main() {
     velY *= friction;
     velZ *= friction;
 
-
+    //Calculates and displays the FPS of the scne
     var thisLoop = new Date();
     var fps = 1000 / (thisLoop - lastLoop);
     lastLoop = thisLoop;
-
     var fpsDiv = document.getElementById('fpsCounter');
     fpsDiv.innerHTML = "fps: " + Math.round(fps);
 
     cameraClass.rotate(velX, velY, velZ);
 
+    //starts the render
     renderer.render(scene, camera);
     requestAnimationFrame(render);
   }
-
   requestAnimationFrame(render);
 }
 

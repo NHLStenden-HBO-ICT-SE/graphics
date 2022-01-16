@@ -13,6 +13,13 @@ export default class Planets {
     this.disSun = disSun;
   }
 
+  /**
+   * 
+   * @param {*} scene is the scene of the where all the planets are
+   * @param {*} geometry 
+   * @param {*} loader is the textureloader
+   * @param {*} spheres are all the spheres
+   */
   createPlanet(scene, geometry, loader, spheres) {
     this.group = new THREE.Group();
     this.object = new THREE.Mesh(geometry, this.createMaterial(loader));
@@ -22,17 +29,27 @@ export default class Planets {
     this.object.castShadow = true;
     this.object.receiveShadow = true;
 
+    //add object to the group
     this.group.add(this.object);
     scene.add(this.group);
     spheres.push(this);
   }
 
+  /**
+   * Creates a new material of a planet
+   * @param {*} loader is the textureloader / image name
+   * @returns returns the meshmaterial of the planet
+   */
   createMaterial(loader) {
     return new THREE.MeshBasicMaterial({
       map: loader.load("/include/img/" + this.name + ".jpg"),
     });
   }
 
+/**
+ * 
+ * @param {*} time 
+ */
   rotate(time) {
     this.group.rotation.y = time * this.positionSpeed;
     this.object.rotation.y = time * this.rotationSpeed;
