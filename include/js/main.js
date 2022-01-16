@@ -1,20 +1,64 @@
-import * as THREE from "/include/modules/three.module.js";
+import * as THREE from '../../node_modules/three/build/three.module.js';
 import Planets from "/include/js/Planets.js";
 import Camera from "/include/js/Camera.js";
 
+/**
+ * velocity from X
+ * @type {number}
+ */
 var velX = 0;
+/**
+ * velocity from Y
+ * @type {number}
+ */
 var velY = 0;
+/**
+ * velocity from Z
+ * @type {number}
+ */
 var velZ = 0;
- 
+
+/**
+ * speed for the rotation
+ * @type {number}
+ */
 var speed = 2;
+/**
+ * friction for the rotation
+ * @type {number}
+ */
 var friction = 0.20;
 
+/**
+ * check if the program is running
+ * @type {boolean}
+ */
 var running = false;
+/**
+ * the time of how long the program is running
+ * @type {number}
+ */
 var runningTime = 0;
+/**
+ * difference between the time and the running time
+ * @type {number}
+ */
 var difference = 0;
 
+/**
+ * the main function of the program, runs when the program starts
+ * @function main
+ */
 function main() {
+  /**
+   * time when the last started loop started
+   * @type {number}
+   */
   var lastLoop = new Date();
+  /**
+   * canvas where the scene is set on
+   * @type {object}
+   */
   const canvas = document.querySelector("#c");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
