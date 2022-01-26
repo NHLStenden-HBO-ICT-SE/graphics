@@ -20,4 +20,6 @@
 
 #### Je kunt er doorheen bewegen doormiddel van de toetsen: W,A,S,D. Roteren kan doormiddel van de toetsen: Q,E,R,F,C,V.
 
+#### Ook kun je bij de JSDoc documentatie komen doormiddel van te navigeren naar /out/index.html.
+
 #### Veel plezier!
