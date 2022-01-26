@@ -1,5 +1,5 @@
 import * as THREE from '../../node_modules/three/build/three.module.js';
-import Planets from "/include/js/Planets.js";
+import Planet from "/include/js/Planet.js";
 import Camera from "/include/js/Camera.js";
 
 /**
@@ -109,31 +109,31 @@ function main() {
   const loader = new THREE.TextureLoader();
 
   //creates all the planets and adds them to the scene
-  const sun = new Planets("sun" , 0, 0.2, 10, 0);
+  const sun = new Planet("sun" , 0, 0.2, 10, 0);
   sun.createPlanet(scene, geometry, loader, spheres);
 
-  const mercury = new Planets("mercury", 4, 1.5, 0.4, 4);
+  const mercury = new Planet("mercury", 4, 1.5, 0.4, 4);
   mercury.createPlanet(scene, geometry, loader, spheres);
 
-  const venus = new Planets("venus", 1.6, 2, 0.95, 7.2);
+  const venus = new Planet("venus", 1.6, 2, 0.95, 7.2);
   venus.createPlanet(scene, geometry, loader, spheres);
 
-  const earth = new Planets("earth", 1, 365, 1, 10);
+  const earth = new Planet("earth", 1, 365, 1, 10);
   earth.createPlanet(scene, geometry, loader, spheres);
 
-  const mars = new Planets("mars", 0.53, 686, 0.53, 15);
+  const mars = new Planet("mars", 0.53, 686, 0.53, 15);
   mars.createPlanet(scene, geometry, loader, spheres);
 
-  const jupiter = new Planets("jupiter", 0.09, 10000, 2.5, 25);
+  const jupiter = new Planet("jupiter", 0.09, 10000, 2.5, 25);
   jupiter.createPlanet(scene, geometry, loader, spheres);
 
-  const saturn = new Planets("saturn", 0.03, 24000, 2, 30);
+  const saturn = new Planet("saturn", 0.03, 24000, 2, 30);
   saturn.createPlanet(scene, geometry, loader, spheres);
 
-  const uranus = new Planets("uranus", 0.01, 42000, 1.5, 40);
+  const uranus = new Planet("uranus", 0.01, 42000, 1.5, 40);
   uranus.createPlanet(scene, geometry, loader, spheres);
 
-  const neptune = new Planets("neptune", 0.006, 92000, 1.25, 55);
+  const neptune = new Planet("neptune", 0.006, 92000, 1.25, 55);
   neptune.createPlanet(scene, geometry, loader, spheres);
 
   /**

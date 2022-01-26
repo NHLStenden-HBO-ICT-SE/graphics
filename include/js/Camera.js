@@ -1,7 +1,7 @@
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
 /** Class representing a Camera. */
-export default class Camera {
+class Camera {
     /**
      * Create a camera.
      * @param {number} fieldOfView - The field of view for the camera.
@@ -41,3 +41,5 @@ export default class Camera {
         this.camera.position.z = this.camera.position.z - velZ;
     }
 }
+
+export default Camera;

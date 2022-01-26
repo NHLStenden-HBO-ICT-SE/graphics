@@ -1,6 +1,7 @@
 import * as THREE from '../../node_modules/three/build/three.module.js';
 
-export default class Planets {
+/** Class representing a Planet. */
+class Planet {
 
   group;
   object;
@@ -64,3 +65,5 @@ export default class Planets {
     this.object.rotation.y = time * this.rotationSpeed;
   }
 }
+
+export default Planet;
