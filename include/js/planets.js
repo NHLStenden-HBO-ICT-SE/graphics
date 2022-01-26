@@ -5,6 +5,15 @@ export default class Planets {
   group;
   object;
 
+  /**
+   * Create a planet.
+   * @param {string} name - The name of the planet.
+   * @param {number} positionSpeed - The position speed of the planet.
+   * @param {number} rotationSpeed - The rotation speed of the planet.
+   * @param {number} size - The size of the planet.
+   * @param {number} disSun - The distance tot the sun.
+   * @class
+   */
   constructor(name, positionSpeed, rotationSpeed, size, disSun) {
     this.name = name;
     this.positionSpeed = positionSpeed;
@@ -14,7 +23,7 @@ export default class Planets {
   }
 
   /**
-   * 
+   * Creates the planet from the class and adds it to the Mesh and Group
    * @param {*} scene is the scene of the where all the planets are
    * @param {*} geometry 
    * @param {*} loader is the textureloader
@@ -37,8 +46,8 @@ export default class Planets {
 
   /**
    * Creates a new material of a planet
-   * @param {*} loader is the textureloader / image name
-   * @returns returns the meshmaterial of the planet
+   * @param {string} loader is the textureloader / image name
+   * @return {object} returns the meshmaterial of the planet
    */
   createMaterial(loader) {
     return new THREE.MeshBasicMaterial({
@@ -47,8 +56,8 @@ export default class Planets {
   }
 
 /**
- * 
- * @param {*} time 
+ * Rotates the object with the given time
+ * @param {number} time 
  */
   rotate(time) {
     this.group.rotation.y = time * this.positionSpeed;

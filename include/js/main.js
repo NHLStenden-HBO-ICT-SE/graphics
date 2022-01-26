@@ -55,6 +55,7 @@ function main() {
    * @type {number}
    */
   var lastLoop = new Date();
+
   /**
    * canvas where the scene is set on
    * @type {object}
@@ -62,6 +63,11 @@ function main() {
   const canvas = document.querySelector("#c");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  /**
+   * The threejs renderer
+   * @type {object}
+   */
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true
@@ -72,6 +78,10 @@ function main() {
 
   const scene = new THREE.Scene();
 
+  /**
+   * The threejs pointlight
+   * @type {object}
+   */
   const light = new THREE.PointLight( 0xFF0000, 1, 100 );
   light.position.set(0, 0, 20);
   light.castShadow = true; 
@@ -86,7 +96,16 @@ function main() {
   //array with all the planets
   const spheres = [];
   
+  /**
+   * The threejs sphere geometry
+   * @type {object}
+   */
   const geometry = new THREE.SphereGeometry(0.5, 32, 16);
+
+  /**
+   * The threejs sphere texture loader
+   * @type {object}
+   */
   const loader = new THREE.TextureLoader();
 
   //creates all the planets and adds them to the scene
@@ -116,16 +135,18 @@ function main() {
 
   const neptune = new Planets("neptune", 0.006, 92000, 1.25, 55);
   neptune.createPlanet(scene, geometry, loader, spheres);
-  
-  //If needed create a helper for the shadow camera (optional)
-  //const helper = new THREE.CameraHelper( light.shadow.camera );
-  //scene.add( helper );
 
+  /**
+   * Renders the scene frame by frame
+   * @param {number} time the real live time
+   */
   function render(time) {
     time *= 0.001;
     
-    //When specific keys are pressed moves or rotates 
-    //the camera around the sun
+    /**
+     * When specific keys are pressed moves or rotates the camera around the sun
+     * @param {object} evt The onkeypress event
+     */
     document.onkeypress = function (evt) {
       evt = evt || window.event;
       var charCode = evt.keyCode || evt.which;
@@ -190,8 +211,7 @@ function main() {
       }
     };
 
-    //Rotates the planets around the sun 
-    //Also rotating around the planet itself
+    // Rotates the planets around the sun and rotating around the planet itself
     if (running) {
       spheres.forEach(planet => {
         planet.rotate(time + difference);
@@ -204,7 +224,7 @@ function main() {
     velY *= friction;
     velZ *= friction;
 
-    //Calculates and displays the FPS of the scne
+    //Calculates and displays the FPS of the scene
     var thisLoop = new Date();
     var fps = 1000 / (thisLoop - lastLoop);
     lastLoop = thisLoop;
@@ -213,7 +233,7 @@ function main() {
 
     cameraClass.rotate(velX, velY, velZ);
 
-    //starts the render
+    // Starts rendering the scene with the camera and the scene.
     renderer.render(scene, camera);
     requestAnimationFrame(render);
   }
